@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.contenedor {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.descripcion {
+  color: #52606d;
+}

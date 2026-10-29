@@ -1,11 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { OrdenForm } from './orden-form/orden-form';
+import { OrdenLista } from './orden-lista/orden-lista';
 
 @Component({
-  imports: [],
   selector: 'app-root',
+  imports: [OrdenForm, OrdenLista],
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
-export class App {
-  protected readonly title = signal('com30-taller06');
-}
+export class App {}

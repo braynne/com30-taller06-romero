@@ -1,59 +1,38 @@
-# Com30Taller06
+# COM30 Taller 06 · Órdenes de mantenimiento
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.5.
+Proyecto Angular standalone para el Taller 06 de COM30 (escenario E4 · Orden de mantenimiento).
 
-## Development server
+## Estado
 
-To start a local development server, run:
+Estructura base creada: modelo de datos, carpetas de validadores y servicio, y los componentes `orden-form`, `orden-lista` y `resumen`. La lógica del formulario, los validadores, el servicio y el listado están pendientes.
+
+## Ejecutar
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Abrir http://localhost:4200. Para comprobar la compilación:
 
 ```bash
-ng generate component component-name
+npx ng build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Estructura
 
-```bash
-ng generate --help
+```text
+src/app/
+├── models/orden.ts
+├── validators/validadores.ts
+├── services/orden.service.ts
+├── orden-form/
+├── orden-lista/
+├── resumen/
+├── app.ts
+└── app.html
 ```
 
-## Building
+## Escenario
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Una orden de mantenimiento registra código y nombre del equipo, tipo, técnico, fechas de inicio y fin, prioridad, descripción y una lista de tareas con horas estimadas. Los estados son Pendiente, En proceso y Finalizada.
