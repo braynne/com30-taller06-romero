@@ -21,5 +21,5 @@ export interface Orden {
   estado: EstadoOrden;
 }
 
-/** Datos que entrega el formulario; el servicio agrega id y estado. */
+// Datos que entrega el formulario; el servicio agrega id y estado.
 export type NuevaOrden = Omit<Orden, 'id' | 'estado'>;
