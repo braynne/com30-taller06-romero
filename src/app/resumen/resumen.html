@@ -1,4 +1,17 @@
-<section>
-  <h3>Resumen</h3>
-  <p>Panel pendiente: total de órdenes, pendientes y horas estimadas.</p>
+<section class="resumen">
+  <h3>Resumen de la gestión</h3>
+  <dl>
+    <div>
+      <dt>Total de órdenes</dt>
+      <dd>{{ total() }}</dd>
+    </div>
+    <div>
+      <dt>Pendientes</dt>
+      <dd>{{ pendientes() }}</dd>
+    </div>
+    <div>
+      <dt>Horas estimadas acumuladas</dt>
+      <dd>{{ horasEstimadas() }} h</dd>
+    </div>
+  </dl>
 </section>

@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { OrdenService } from '../services/orden.service';
 
 @Component({
   selector: 'app-resumen',
-  imports: [],
   styleUrl: './resumen.css',
   templateUrl: './resumen.html',
 })
 export class Resumen {
-  // TODO R7: leer los computed del servicio y mostrarlos en el panel diferido.
+  private readonly service = inject(OrdenService);
+
+  protected readonly total = this.service.total;
+  protected readonly pendientes = this.service.pendientes;
+  protected readonly horasEstimadas = this.service.horasEstimadas;
 }

@@ -1,0 +1,140 @@
+:host {
+  display: block;
+}
+
+.encabezado-lista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.encabezado-lista h2 {
+  margin: 0;
+}
+
+.contadores {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  color: #52606d;
+  font-size: 0.9rem;
+}
+
+.orden {
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #d9e2ec;
+  border-left: 4px solid #f0b429;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.orden.finalizada {
+  border-left-color: #3ebd93;
+  opacity: 0.85;
+}
+
+.orden-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.orden-cabecera h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.estado {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.estado.pendiente {
+  background: #fff3c4;
+  color: #8d2b0b;
+}
+
+.estado.en-proceso {
+  background: #d9f0ff;
+  color: #0b4a6f;
+}
+
+.estado.finalizada {
+  background: #d7f5e9;
+  color: #0a6b4a;
+}
+
+.meta {
+  margin: 0.35rem 0 0;
+  color: #52606d;
+  font-size: 0.9rem;
+}
+
+.descripcion {
+  margin: 0.5rem 0;
+}
+
+.tareas {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  color: #334e68;
+}
+
+.tareas li span {
+  margin-left: 0.4rem;
+  color: #627d98;
+  font-size: 0.85rem;
+}
+
+.acciones-orden {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #eef2f6;
+}
+
+.acciones-orden label {
+  margin: 0;
+}
+
+.acciones-orden select {
+  width: auto;
+}
+
+.btn-eliminar {
+  background: #fff;
+  border-color: #f0b4b4;
+  color: #9b1c1c;
+}
+
+.vacio {
+  padding: 1.5rem;
+  border: 1px dashed #bcccdc;
+  border-radius: 10px;
+  background: #fff;
+  color: #52606d;
+  text-align: center;
+}
+
+.btn-resumen {
+  width: 100%;
+  margin-top: 0.5rem;
+  background: #e6f6ff;
+  border-color: #9ad8fb;
+  color: #0b4a6f;
+}
+
+.cargando {
+  color: #52606d;
+}

@@ -1,7 +1,61 @@
 <section>
-  <h2>Órdenes registradas</h2>
-  <p>
-    Listado pendiente: for con track, empty, cambio de estado por registro
-    y panel de resumen con defer (on interaction).
-  </p>
+  <div class="encabezado-lista">
+    <h2>Órdenes registradas</h2>
+    <p class="contadores">
+      <span>Total: {{ total() }}</span>
+      <span>Pendientes: {{ pendientes() }}</span>
+    </p>
+  </div>
+
+  @for (orden of ordenes(); track orden.id) {
+    <article class="orden" [class.finalizada]="orden.estado === 'Finalizada'">
+      <div class="orden-cabecera">
+        <h3>{{ orden.codigoEquipo }} · {{ orden.equipo }}</h3>
+        <span
+          class="estado"
+          [class.pendiente]="orden.estado === 'Pendiente'"
+          [class.en-proceso]="orden.estado === 'En proceso'"
+          [class.finalizada]="orden.estado === 'Finalizada'"
+        >
+          {{ orden.estado }}
+        </span>
+      </div>
+
+      <p class="meta">{{ orden.tipo }} · {{ orden.tecnico }} · Prioridad {{ orden.prioridad }}</p>
+      <p class="meta">{{ orden.fechaInicio }} → {{ orden.fechaFin }}</p>
+      <p class="descripcion">{{ orden.descripcion }}</p>
+
+      <ul class="tareas">
+        @for (tarea of orden.tareas; track tarea) {
+          <li>
+            {{ tarea.descripcion }}
+            <span>{{ tarea.horasEstimadas }} h</span>
+          </li>
+        }
+      </ul>
+
+      <div class="acciones-orden">
+        <label [for]="'estado-' + orden.id">Estado</label>
+        <select [id]="'estado-' + orden.id" (change)="cambiarEstado(orden.id, $event)">
+          @for (estado of estados; track estado) {
+            <option [value]="estado" [selected]="estado === orden.estado">
+              {{ estado }}
+            </option>
+          }
+        </select>
+
+        <button type="button" class="btn-eliminar" (click)="eliminar(orden.id)">Eliminar</button>
+      </div>
+    </article>
+  } @empty {
+    <p class="vacio">No hay órdenes registradas. Use el formulario para crear la primera.</p>
+  }
+
+  @defer (on interaction) {
+    <app-resumen />
+  } @placeholder (minimum 500ms) {
+    <button type="button" class="btn-resumen">Ver resumen de la gestión</button>
+  } @loading (minimum 200ms) {
+    <p class="cargando">Cargando resumen…</p>
+  }
 </section>

@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.resumen {
+  margin-top: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #b6e0fe;
+  border-radius: 10px;
+  background: #f0f9ff;
+}
+
+.resumen h3 {
+  margin-top: 0;
+  color: #0b4a6f;
+}
+
+.resumen dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.resumen dl div {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.resumen dt {
+  color: #52606d;
+  font-size: 0.8rem;
+}
+
+.resumen dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #102a43;
+}
