@@ -1,7 +1,191 @@
-<section>
-  <h2>Registrar orden</h2>
-  <p>
-    Formulario pendiente: 8 controles, validador propio, validador de grupo y
-    FormArray de tareas.
-  </p>
-</section>
+<form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+  <fieldset>
+    <legend>Datos del equipo</legend>
+
+    <div class="campo">
+      @let codigo = form.controls.codigoEquipo;
+      <label for="codigoEquipo">Código del equipo</label>
+      <input
+        id="codigoEquipo"
+        formControlName="codigoEquipo"
+        placeholder="EQ-0000"
+        autocomplete="off"
+      />
+      @if (codigo.invalid && (codigo.touched || codigo.dirty)) {
+        @if (codigo.hasError('required')) {
+          <small class="error">El código es obligatorio.</small>
+        } @else if (codigo.hasError('pattern')) {
+          <small class="error">Use el formato EQ-0000: cuatro dígitos.</small>
+        }
+      }
+    </div>
+
+    <div class="campo">
+      @let equipo = form.controls.equipo;
+      <label for="equipo">Equipo</label>
+      <input id="equipo" formControlName="equipo" autocomplete="off" />
+      @if (equipo.invalid && (equipo.touched || equipo.dirty)) {
+        @if (equipo.hasError('required')) {
+          <small class="error">El nombre del equipo es obligatorio.</small>
+        } @else if (equipo.hasError('minlength')) {
+          <small class="error">
+            Mínimo {{ equipo.getError('minlength').requiredLength }} caracteres.
+          </small>
+        }
+      }
+    </div>
+
+    <div class="campo">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" formControlName="tipo">
+        @for (tipo of tipos; track tipo) {
+          <option [value]="tipo">{{ tipo }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="campo">
+      @let tecnico = form.controls.tecnico;
+      <label for="tecnico">Técnico</label>
+      <input id="tecnico" formControlName="tecnico" autocomplete="off" />
+      @if (tecnico.invalid && (tecnico.touched || tecnico.dirty)) {
+        @if (tecnico.hasError('required')) {
+          <small class="error">El técnico es obligatorio.</small>
+        } @else if (tecnico.hasError('soloEspacios')) {
+          <small class="error">El nombre no puede tener solo espacios.</small>
+        } @else if (tecnico.hasError('minlength')) {
+          <small class="error">
+            Mínimo {{ tecnico.getError('minlength').requiredLength }} caracteres.
+          </small>
+        }
+      }
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Fechas y prioridad</legend>
+
+    <div class="campo">
+      <label for="fechaInicio">Fecha de inicio</label>
+      <input id="fechaInicio" type="date" formControlName="fechaInicio" />
+    </div>
+
+    <div class="campo">
+      <label for="fechaFin">Fecha de fin</label>
+      <input id="fechaFin" type="date" formControlName="fechaFin" />
+      @if (
+        form.hasError('rangoFechas') &&
+        (form.controls.fechaFin.touched || form.controls.fechaFin.dirty)
+      ) {
+        <small class="error">
+          La fecha de fin debe ser igual o posterior a la fecha de inicio.
+        </small>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="prioridad">Prioridad</label>
+      <select id="prioridad" formControlName="prioridad">
+        @for (prioridad of prioridades; track prioridad) {
+          <option [value]="prioridad">{{ prioridad }}</option>
+        }
+      </select>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Descripción</legend>
+
+    <div class="campo">
+      @let descripcion = form.controls.descripcion;
+      <label for="descripcion">Descripción</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        rows="3"
+        placeholder="Detalle el trabajo solicitado"
+      ></textarea>
+      @if (descripcion.invalid && (descripcion.touched || descripcion.dirty)) {
+        @if (descripcion.hasError('required')) {
+          <small class="error">La descripción es obligatoria.</small>
+        } @else if (descripcion.hasError('minlength')) {
+          <small class="error">
+            Mínimo
+            {{ descripcion.getError('minlength').requiredLength }} caracteres.
+          </small>
+        }
+      }
+    </div>
+  </fieldset>
+
+  <fieldset formArrayName="tareas">
+    <legend>Tareas</legend>
+
+    @for (fila of tareas.controls; track fila; let i = $index) {
+      <div class="fila" [formGroupName]="i">
+        <div class="campo">
+          @let tareaDesc = fila.controls.descripcion;
+          <label [for]="'tarea-descripcion-' + i"> Descripción de la tarea {{ i + 1 }} </label>
+          <input
+            [id]="'tarea-descripcion-' + i"
+            formControlName="descripcion"
+            placeholder="Descripción de la tarea"
+            autocomplete="off"
+          />
+          @if (tareaDesc.invalid && (tareaDesc.touched || tareaDesc.dirty)) {
+            @if (tareaDesc.hasError('required')) {
+              <small class="error">La tarea es obligatoria.</small>
+            } @else if (tareaDesc.hasError('soloEspacios')) {
+              <small class="error"> La tarea no puede tener solo espacios. </small>
+            } @else if (tareaDesc.hasError('minlength')) {
+              <small class="error">
+                Mínimo
+                {{ tareaDesc.getError('minlength').requiredLength }} caracteres.
+              </small>
+            }
+          }
+        </div>
+
+        <div class="campo campo-horas">
+          @let horas = fila.controls.horasEstimadas;
+          <label [for]="'tarea-horas-' + i">Horas estimadas</label>
+          <input
+            [id]="'tarea-horas-' + i"
+            type="number"
+            formControlName="horasEstimadas"
+            min="1"
+            max="40"
+          />
+          @if (horas.invalid && (horas.touched || horas.dirty)) {
+            @if (horas.hasError('required')) {
+              <small class="error">Las horas son obligatorias.</small>
+            } @else if (horas.hasError('min')) {
+              <small class="error">Mínimo 1 hora.</small>
+            } @else if (horas.hasError('max')) {
+              <small class="error">Máximo 40 horas.</small>
+            }
+          }
+        </div>
+
+        <button
+          type="button"
+          class="btn-quitar"
+          (click)="quitarTarea(i)"
+          [attr.aria-label]="'Quitar tarea ' + (i + 1)"
+        >
+          Quitar
+        </button>
+      </div>
+    }
+
+    @if (tareas.hasError('minimoTareas') && tareas.touched) {
+      <small class="error">Agregue al menos una tarea.</small>
+    }
+
+    <button type="button" class="btn-secundario" (click)="agregarTarea()">Agregar tarea</button>
+  </fieldset>
+
+  <div class="acciones">
+    <button type="submit" class="btn-primario" [disabled]="form.invalid">Registrar orden</button>
+  </div>
+</form>

@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+}
+
+legend {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo-horas {
+  max-width: 10rem;
+}
+
+.fila {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: start;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border: 1px dashed #d9e2ec;
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.btn-secundario {
+  grid-column: 1 / -1;
+  justify-self: start;
+  background: #e6f6ff;
+  border-color: #9ad8fb;
+  color: #0b4a6f;
+}
+
+.btn-quitar {
+  align-self: end;
+  background: #fff;
+  border-color: #f0b4b4;
+  color: #9b1c1c;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-primario {
+  background: #1570ef;
+  color: #fff;
+  padding: 0.65rem 1.3rem;
+  font-weight: 600;
+}
+
+.btn-primario:hover:not(:disabled) {
+  background: #175cd3;
+}
