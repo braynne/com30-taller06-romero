@@ -1,0 +1,93 @@
+<section class="busqueda">
+  <h2>Buscar órdenes</h2>
+  <p class="ayuda">
+    Busca en <strong>equipo</strong> y <strong>técnico</strong>. Ignora mayúsculas y tildes, y
+    necesita al menos 2 caracteres.
+  </p>
+
+  <div class="controles">
+    <div class="campo">
+      <label for="textoBusqueda">Texto</label>
+      <input
+        id="textoBusqueda"
+        [formControl]="busqueda"
+        placeholder="Ej.: compresor, Ana"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="campo">
+      <label for="filtroEstado">Estado</label>
+      <select id="filtroEstado" (change)="cambiarFiltro($event)">
+        @for (estado of estados; track estado) {
+          <option [value]="estado">{{ estado }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <p class="contadores">
+    <span>Total de coincidencias: {{ total() }}</span>
+    <span>Mostradas: {{ mostradas() }}</span>
+    <span>Consultas al servicio: {{ llamadas() }}</span>
+  </p>
+
+  <p class="conteo-estados">
+    Pendiente: {{ conteoEstados().Pendiente }} · En proceso: {{ conteoEstados()['En proceso'] }} ·
+    Finalizada:
+    {{ conteoEstados().Finalizada }}
+  </p>
+
+  @if (busqueda.value.trim().length < 2) {
+    <p class="aviso">Escriba al menos 2 caracteres para buscar.</p>
+  } @else if (buscando()) {
+    <p class="aviso buscando">Buscando…</p>
+  } @else {
+    <div class="tabla-envoltura">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Equipo</th>
+            <th>Técnico</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (orden of visibles(); track orden.id) {
+            <tr>
+              <td>{{ orden.codigoEquipo }}</td>
+              <td>{{ orden.equipo }}</td>
+              <td>{{ orden.tecnico }}</td>
+              <td>
+                <span
+                  class="estado"
+                  [class.pendiente]="orden.estado === 'Pendiente'"
+                  [class.en-proceso]="orden.estado === 'En proceso'"
+                  [class.finalizada]="orden.estado === 'Finalizada'"
+                >
+                  {{ orden.estado }}
+                </span>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="vacio">Sin coincidencias.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <h3>Historial de consultas</h3>
+  @if (historial().length === 0) {
+    <p class="aviso">Aún no hay consultas.</p>
+  } @else {
+    <ol class="historial">
+      @for (termino of historial(); track $index) {
+        <li>{{ termino }}</li>
+      }
+    </ol>
+  }
+</section>

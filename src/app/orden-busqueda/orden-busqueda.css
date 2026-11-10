@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.busqueda {
+  padding: 1rem 1.25rem 1.25rem;
+  border: 1px solid #b6e0fe;
+  border-radius: 10px;
+  background: #f0f9ff;
+}
+
+.busqueda h2 {
+  margin-top: 0;
+  color: #0b4a6f;
+}
+
+.ayuda {
+  margin-top: 0;
+  color: #52606d;
+  font-size: 0.9rem;
+}
+
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.campo {
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: column;
+}
+
+.campo:last-child {
+  flex: 0 1 180px;
+}
+
+.contadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.5rem 0 0.25rem;
+  color: #243b53;
+  font-size: 0.9rem;
+}
+
+.conteo-estados {
+  margin: 0 0 0.75rem;
+  color: #52606d;
+  font-size: 0.88rem;
+}
+
+.aviso {
+  margin: 0.5rem 0;
+  color: #52606d;
+}
+
+.buscando {
+  font-weight: 600;
+  color: #0b4a6f;
+}
+
+.tabla-envoltura {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th,
+td {
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid #eef2f6;
+  text-align: left;
+}
+
+th {
+  background: #e6f6ff;
+  color: #0b4a6f;
+  font-size: 0.85rem;
+}
+
+.vacio {
+  padding: 1rem;
+  color: #52606d;
+  text-align: center;
+}
+
+.estado {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.estado.pendiente {
+  background: #fff3c4;
+  color: #8d2b0b;
+}
+
+.estado.en-proceso {
+  background: #d9f0ff;
+  color: #0b4a6f;
+}
+
+.estado.finalizada {
+  background: #d7f5e9;
+  color: #0a6b4a;
+}
+
+.historial {
+  margin: 0;
+  padding-left: 1.4rem;
+  color: #334e68;
+}
+
+.historial li {
+  margin-bottom: 0.15rem;
+}
