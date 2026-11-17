@@ -1,10 +1,11 @@
-# COM30 Talleres 06 y 07 · Órdenes de mantenimiento
+# COM30 Talleres 06, 07 y 08 · Órdenes de mantenimiento
 
-Aplicación Angular de una sola pantalla para registrar y gestionar **órdenes de
-mantenimiento de equipos** (escenario E4). El formulario reactivo captura los
-datos y una lista dinámica de tareas; el servicio guarda los registros en
-memoria, el listado permite cambiar el estado o eliminar una orden y el Taller
-07 agrega una **búsqueda reactiva** sobre una semilla de 12 órdenes.
+Aplicación Angular para registrar, buscar y gestionar **órdenes de mantenimiento
+de equipos** (escenario E4). El formulario reactivo captura los datos y una
+lista dinámica de tareas; el servicio guarda los registros en memoria; el Taller
+07 agrega una **búsqueda reactiva** sobre una semilla de 12 órdenes, y el Taller
+08 organiza todo en **rutas y navegación** con detalle, filtro en la URL, alta,
+vista diferida y 404.
 
 **Autor:** Braynne Alexander Romero Balza · COM30 · 2026-III
 
@@ -38,17 +39,22 @@ El resultado queda en `dist/com30-taller06/`.
 src/app/
 ├── models/orden.ts              interfaces Orden, Tarea y tipos del escenario
 ├── validators/validadores.ts    sinSoloEspacios, rangoFechas y minimoTareas
-├── services/orden.service.ts    signal privada, asReadonly, computed y buscar()
-├── orden-form/                  formulario reactivo y FormArray de tareas
+├── services/orden.service.ts    signal privada, asReadonly, computed, buscar() y agregar()
+├── app.routes.ts                mapa de rutas con títulos y comodín
+├── orden-form/                  formulario reactivo, FormArray y alta con navigate()
 ├── orden-busqueda/              búsqueda reactiva, filtros e historial
-├── orden-lista/                 listado, cambio de estado y @defer
+├── orden-lista/                 listado, filtro por URL, cambio de estado y @defer
+├── orden-detalle/               detalle con input() del parámetro :id
+├── estadisticas/                vista diferida con loadComponent
+├── no-encontrado/               vista 404 con la dirección pedida
 ├── resumen/                     panel diferido con los totales
-├── app.ts                       compone formulario y listado
+├── app.ts                       menú con routerLink y router-outlet
+├── app.config.ts                provideRouter con withComponentInputBinding
 └── app.html
 ```
 
-Se usan componentes standalone y no se emplean `NgModule`, `*ngIf`, rutas ni
-`HttpClient`. Los datos viven en memoria, en el servicio.
+Se usan componentes standalone y no se emplean `NgModule`, `*ngIf`,
+`HttpClient` ni guards. Los datos viven en memoria, en el servicio.
 
 ## Requisitos del taller aplicados
 
@@ -108,3 +114,36 @@ Los nueve casos también se ejecutaron en el navegador. El conteo de llamadas
 del servicio coincide con la tabla B del informe: C1 a C9 terminan en 1, 2, 3,
 3, 3, 4, 5, 6 y 8 consultas, y el caso C9 termina con la respuesta de «motor
 diésel», no con la de «mo».
+
+## Taller 08 · Rutas y navegación
+
+`app.config.ts` usa `provideRouter(routes, withComponentInputBinding())`. El
+menú usa `routerLink` y `routerLinkActive` (Inicio con `exact: true`) y hay un
+solo `<router-outlet />`. Ningún enlace interno usa `href`.
+
+### Tabla de rutas
+
+| Ruta             | Vista                    | Parámetro o carga                |
+| ---------------- | ------------------------ | -------------------------------- |
+| `/`              | Redirección a `/ordenes` | `pathMatch: 'full'`              |
+| `/ordenes`       | `OrdenLista`             | `?estado=` → `input<string>('')` |
+| `/ordenes/nueva` | `OrdenForm`              | —                                |
+| `/ordenes/:id`   | `OrdenDetalle`           | `input.required<string>()`       |
+| `/estadisticas`  | `Estadisticas`           | `loadComponent`                  |
+| `**`             | `NoEncontrado`           | comodín al final                 |
+
+Cada ruta tiene `title`. El detalle busca con un `computed` sobre la signal del
+servicio y muestra «No existe la orden …» cuando el id no aparece. El filtro
+del listado viaja en la URL, sobrevive a F5 y muestra `@empty` si no hay
+registros. Tras guardar el alta, `router.navigate(['/ordenes', id])` abre el
+detalle del registro nuevo. La vista `estadisticas` se descarga como un chunk
+independiente solo la primera vez que se abre.
+
+### Casos de prueba del Taller 08
+
+Los nueve casos se ejecutaron en el navegador: `/` redirige a `/ordenes` con 12
+registros; el filtro «Pendiente» deja 5 y sobrevive a F5; `?estado=Cancelada`
+muestra `@empty`; `/ordenes/1` muestra la orden R01 con el menú activo;
+`/ordenes/99` muestra el mensaje dentro del detalle; `/reportes` cae en la 404;
+el alta `EQ-1013` navega a `/ordenes/13` y deja 13 registros y 6 pendientes; y
+`/estadisticas` descarga un `chunk-….js` nuevo solo en el primer ingreso.
