@@ -1,13 +1,28 @@
+<app-orden-busqueda />
+
 <section>
   <div class="encabezado-lista">
     <h2>Órdenes registradas</h2>
     <p class="contadores">
       <span>Total: {{ total() }}</span>
       <span>Pendientes: {{ pendientes() }}</span>
+      <span>Mostradas: {{ visibles().length }}</span>
     </p>
   </div>
 
-  @for (orden of ordenes(); track orden.id) {
+  <nav class="filtros" aria-label="Filtrar por estado">
+    @for (filtro of filtros; track filtro.valor) {
+      <a
+        [routerLink]="['/ordenes']"
+        [queryParams]="filtro.valor ? { estado: filtro.valor } : {}"
+        [class.activo]="estado() === filtro.valor"
+      >
+        {{ filtro.texto }}
+      </a>
+    }
+  </nav>
+
+  @for (orden of visibles(); track orden.id) {
     <article class="orden" [class.finalizada]="orden.estado === 'Finalizada'">
       <div class="orden-cabecera">
         <h3>{{ orden.codigoEquipo }} · {{ orden.equipo }}</h3>
@@ -35,6 +50,7 @@
       </ul>
 
       <div class="acciones-orden">
+        <a class="detalle" [routerLink]="['/ordenes', orden.id]">Ver detalle</a>
         <label [for]="'estado-' + orden.id">Estado</label>
         <select [id]="'estado-' + orden.id" (change)="cambiarEstado(orden.id, $event)">
           @for (estado of estados; track estado) {
@@ -48,8 +64,10 @@
       </div>
     </article>
   } @empty {
-    <p class="vacio">No hay órdenes registradas. Use el formulario para crear la primera.</p>
+    <p class="vacio">No hay órdenes con el estado «{{ estado() }}».</p>
   }
+
+  <a class="alta" [routerLink]="['/ordenes', 'nueva']">+ Registrar una orden</a>
 
   @defer (on interaction) {
     <app-resumen />

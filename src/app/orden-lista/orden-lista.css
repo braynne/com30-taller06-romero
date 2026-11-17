@@ -2,6 +2,41 @@
   display: block;
 }
 
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.filtros a {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid #bcccdc;
+  border-radius: 999px;
+  color: #334e68;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.filtros a.activo {
+  border-color: #0b4a6f;
+  background: #0b4a6f;
+  color: #fff;
+}
+
+.acciones-orden .detalle {
+  color: #0b4a6f;
+  font-weight: 600;
+}
+
+.alta {
+  display: inline-block;
+  margin: 0.5rem 0 1rem;
+  color: #0b4a6f;
+  font-weight: 600;
+}
+
 .encabezado-lista {
   display: flex;
   flex-wrap: wrap;
