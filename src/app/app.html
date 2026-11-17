@@ -1,8 +1,14 @@
 <main class="contenedor">
   <h1>Órdenes de mantenimiento</h1>
-  <p class="descripcion">Taller 06 · COM30 · Escenario E4</p>
+  <p class="descripcion">Talleres 06 a 08 · COM30 · Escenario E4</p>
 
-  <app-orden-form />
-  <app-orden-busqueda />
-  <app-orden-lista />
+  <nav class="menu" aria-label="Navegación principal">
+    <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }"
+      >Inicio</a
+    >
+    <a routerLink="/ordenes" routerLinkActive="activo">Órdenes</a>
+    <a routerLink="/estadisticas" routerLinkActive="activo">Estadísticas</a>
+  </nav>
+
+  <router-outlet />
 </main>

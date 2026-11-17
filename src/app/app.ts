@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { OrdenBusqueda } from './orden-busqueda/orden-busqueda';
-import { OrdenForm } from './orden-form/orden-form';
-import { OrdenLista } from './orden-lista/orden-lista';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [OrdenForm, OrdenBusqueda, OrdenLista],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
