@@ -215,13 +215,15 @@ export class OrdenService {
     return of(resultados).pipe(delay(retardo));
   }
 
-  agregar(datos: NuevaOrden): void {
+  agregar(datos: NuevaOrden): number {
+    const id = this.siguienteId++;
     const orden: Orden = {
       ...datos,
-      id: this.siguienteId++,
+      id,
       estado: 'Pendiente',
     };
     this._ordenes.update((lista) => [...lista, orden]);
+    return id;
   }
 
   cambiarEstado(id: number, estado: EstadoOrden): void {

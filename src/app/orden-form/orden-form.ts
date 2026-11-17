@@ -1,18 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import type { Prioridad, TipoMantenimiento } from '../models/orden';
 import { OrdenService } from '../services/orden.service';
 import { minimoTareas, rangoFechas, sinSoloEspacios } from '../validators/validadores';
 
 @Component({
   selector: 'app-orden-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   styleUrl: './orden-form.css',
   templateUrl: './orden-form.html',
 })
 export class OrdenForm {
   private readonly fb = inject(FormBuilder).nonNullable;
   private readonly ordenes = inject(OrdenService);
+  private readonly router = inject(Router);
 
   protected readonly tipos: TipoMantenimiento[] = ['Preventivo', 'Correctivo', 'Calibración'];
 
@@ -52,13 +54,16 @@ export class OrdenForm {
       return;
     }
 
-    this.ordenes.agregar(this.form.getRawValue());
+    const id = this.ordenes.agregar(this.form.getRawValue());
 
     this.form.reset();
     this.tareas.clear();
     this.tareas.push(this.nuevaTarea());
     this.form.markAsPristine();
     this.form.markAsUntouched();
+
+    // Navegación programática al detalle del registro recién creado.
+    void this.router.navigate(['/ordenes', id]);
   }
 
   private nuevaTarea() {
