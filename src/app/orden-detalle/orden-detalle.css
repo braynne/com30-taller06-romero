@@ -1,0 +1,82 @@
+.detalle {
+  padding: 1rem 1.25rem;
+  border: 1px solid #b6e0fe;
+  border-radius: 10px;
+  background: #f0f9ff;
+}
+
+.detalle h2 {
+  margin-top: 0;
+  color: #0b4a6f;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0 0 1.25rem;
+}
+
+.datos dt {
+  color: #52606d;
+  font-weight: 600;
+}
+
+.datos dd {
+  margin: 0;
+}
+
+.tareas {
+  padding-left: 1.2rem;
+}
+
+.tareas li {
+  margin-bottom: 0.2rem;
+}
+
+.tareas span {
+  color: #52606d;
+}
+
+.estado {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.estado.pendiente {
+  background: #fff3c4;
+  color: #8d2b0b;
+}
+
+.estado.en-proceso {
+  background: #d9f0ff;
+  color: #0b4a6f;
+}
+
+.estado.finalizada {
+  background: #d7f5e9;
+  color: #0a6b4a;
+}
+
+.cambio-estado {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.no-existe {
+  padding: 1rem;
+  border-left: 4px solid #d64545;
+  background: #fff1f1;
+  color: #8a1c1c;
+  font-weight: 600;
+}
+
+.volver {
+  display: inline-block;
+  color: #0b4a6f;
+  font-weight: 600;
+}

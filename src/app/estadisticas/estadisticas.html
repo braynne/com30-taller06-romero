@@ -1,0 +1,33 @@
+<section class="estadisticas">
+  <h2>Estadísticas de la gestión</h2>
+  <p class="nota">Vista cargada de forma diferida con <code>loadComponent</code>.</p>
+
+  <div class="tarjetas">
+    <article>
+      <span class="valor">{{ total() }}</span>
+      <span class="etiqueta">Órdenes registradas</span>
+    </article>
+    <article>
+      <span class="valor">{{ pendientes() }}</span>
+      <span class="etiqueta">Pendientes</span>
+    </article>
+    <article>
+      <span class="valor">{{ enProceso() }}</span>
+      <span class="etiqueta">En proceso</span>
+    </article>
+    <article>
+      <span class="valor">{{ finalizadas() }}</span>
+      <span class="etiqueta">Finalizadas</span>
+    </article>
+    <article>
+      <span class="valor">{{ horasEstimadas() }} h</span>
+      <span class="etiqueta">Horas estimadas</span>
+    </article>
+    <article>
+      <span class="valor">{{ horasPorOrden() }} h</span>
+      <span class="etiqueta">Horas por orden</span>
+    </article>
+  </div>
+
+  <a routerLink="/ordenes">← Volver al listado</a>
+</section>

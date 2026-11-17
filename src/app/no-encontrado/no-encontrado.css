@@ -1,0 +1,32 @@
+.no-encontrado {
+  padding: 2rem;
+  border: 1px solid #f0c7c7;
+  border-radius: 10px;
+  background: #fff7f7;
+  text-align: center;
+}
+
+.codigo {
+  margin: 0;
+  color: #b3261e;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.no-encontrado h2 {
+  margin: 0.25rem 0 0.75rem;
+  color: #8a1c1c;
+}
+
+.no-encontrado code {
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: #ffe9e9;
+}
+
+.no-encontrado a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #8a1c1c;
+  font-weight: 600;
+}

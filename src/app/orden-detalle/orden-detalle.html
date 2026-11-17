@@ -1,0 +1,59 @@
+<section class="detalle">
+  <h2>Detalle de la orden</h2>
+
+  @if (orden(); as orden) {
+    <dl class="datos">
+      <dt>Código del equipo</dt>
+      <dd>{{ orden.codigoEquipo }}</dd>
+      <dt>Equipo</dt>
+      <dd>{{ orden.equipo }}</dd>
+      <dt>Tipo</dt>
+      <dd>{{ orden.tipo }}</dd>
+      <dt>Técnico</dt>
+      <dd>{{ orden.tecnico }}</dd>
+      <dt>Fechas</dt>
+      <dd>{{ orden.fechaInicio }} → {{ orden.fechaFin }}</dd>
+      <dt>Prioridad</dt>
+      <dd>{{ orden.prioridad }}</dd>
+      <dt>Descripción</dt>
+      <dd>{{ orden.descripcion }}</dd>
+      <dt>Estado</dt>
+      <dd>
+        <span
+          class="estado"
+          [class.pendiente]="orden.estado === 'Pendiente'"
+          [class.en-proceso]="orden.estado === 'En proceso'"
+          [class.finalizada]="orden.estado === 'Finalizada'"
+        >
+          {{ orden.estado }}
+        </span>
+      </dd>
+    </dl>
+
+    <h3>Tareas</h3>
+    <ul class="tareas">
+      @for (tarea of orden.tareas; track tarea) {
+        <li>
+          {{ tarea.descripcion }} <span>{{ tarea.horasEstimadas }} h</span>
+        </li>
+      }
+    </ul>
+
+    <div class="cambio-estado">
+      <label for="estado-detalle">Cambiar estado</label>
+      <select
+        id="estado-detalle"
+        [value]="orden.estado"
+        (change)="cambiarEstado($any($event.target).value)"
+      >
+        @for (estado of estados; track estado) {
+          <option [value]="estado">{{ estado }}</option>
+        }
+      </select>
+    </div>
+  } @else {
+    <p class="no-existe">No existe la orden {{ id() }}.</p>
+  }
+
+  <a class="volver" routerLink="/ordenes">← Volver al listado</a>
+</section>
