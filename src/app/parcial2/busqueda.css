@@ -1,0 +1,35 @@
+.busqueda {
+  border-top: 1px solid #9ad8fb;
+  padding-top: 1rem;
+}
+
+.busqueda h2 {
+  margin-bottom: 0.25rem;
+}
+
+.ayuda {
+  color: #52606d;
+  font-size: 0.9rem;
+}
+
+.estado-busqueda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  color: #243b53;
+  font-weight: 600;
+}
+
+.resultados {
+  padding-left: 1.2rem;
+}
+
+.resultados li {
+  margin-bottom: 0.2rem;
+}
+
+.resultados .vacio {
+  color: #52606d;
+  list-style: none;
+  margin-left: -1.2rem;
+}

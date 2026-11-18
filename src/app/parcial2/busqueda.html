@@ -1,0 +1,25 @@
+<section class="busqueda">
+  <h2>Búsqueda reactiva</h2>
+  <p class="ayuda">Escriba, por ejemplo, «{{ palabra }}».</p>
+  <label for="buscar">Buscar</label>
+  <input
+    id="buscar"
+    [formControl]="busquedaControl"
+    [attr.placeholder]="palabra"
+    autocomplete="off"
+  />
+
+  <p class="estado-busqueda">
+    <span>Último valor: {{ ultimoValor() || '—' }}</span>
+    <span>Emisiones: {{ emisiones() }}</span>
+  </p>
+
+  <h3>Órdenes filtradas</h3>
+  <ul class="resultados">
+    @for (orden of visibles(); track orden.id) {
+      <li>{{ orden.codigoEquipo }} · {{ orden.equipo }} · {{ orden.tecnico }}</li>
+    } @empty {
+      <li class="vacio">Sin coincidencias para «{{ ultimoValor() }}».</li>
+    }
+  </ul>
+</section>
