@@ -1,0 +1,78 @@
+<section class="parcial2">
+  <h2>Solicitud validada</h2>
+  <p class="parametros">
+    Parámetros del dígito 4: <strong>m = {{ m }}</strong
+    >, <strong>tope = {{ tope }}</strong
+    >, <strong>desde = {{ desde }}</strong> y <strong>hasta = {{ hasta }}</strong
+    >.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+    <div class="campo">
+      @let codigo = form.controls.codigo;
+      <label for="codigo">Código</label>
+      <input id="codigo" formControlName="codigo" placeholder="AB123" autocomplete="off" />
+      @if (codigo.invalid && (codigo.touched || codigo.dirty)) {
+        @if (codigo.hasError('required')) {
+          <small class="error">El código es obligatorio.</small>
+        } @else if (codigo.hasError('pattern')) {
+          <small class="error">Use dos mayúsculas y tres dígitos (AB123).</small>
+        }
+      }
+    </div>
+
+    <div class="campo">
+      @let cantidad = form.controls.cantidad;
+      <label for="cantidad">Cantidad</label>
+      <input id="cantidad" type="number" formControlName="cantidad" />
+      @if (cantidad.invalid && (cantidad.touched || cantidad.dirty)) {
+        @if (cantidad.hasError('required')) {
+          <small class="error">La cantidad es obligatoria.</small>
+        }
+        @if (cantidad.hasError('min')) {
+          <small class="error">Mínimo 1.</small>
+        }
+        @if (cantidad.hasError('max')) {
+          <small class="error">Máximo {{ tope }}.</small>
+        }
+        @if (cantidad.hasError('multiplo')) {
+          <small class="error">Debe ser múltiplo de {{ m }}.</small>
+        }
+      }
+    </div>
+
+    <div class="fila-fechas">
+      <div class="campo">
+        @let desdeControl = form.controls.desde;
+        <label for="desde">Desde</label>
+        <input id="desde" type="number" formControlName="desde" />
+        @if (desdeControl.invalid && (desdeControl.touched || desdeControl.dirty)) {
+          <small class="error">El valor desde es obligatorio.</small>
+        }
+      </div>
+
+      <div class="campo">
+        @let hastaControl = form.controls.hasta;
+        <label for="hasta">Hasta</label>
+        <input id="hasta" type="number" formControlName="hasta" />
+        @if (hastaControl.invalid && (hastaControl.touched || hastaControl.dirty)) {
+          <small class="error">El valor hasta es obligatorio.</small>
+        }
+      </div>
+    </div>
+
+    @if (
+      form.hasError('hastaMayor') &&
+      (form.controls.desde.touched ||
+        form.controls.desde.dirty ||
+        form.controls.hasta.touched ||
+        form.controls.hasta.dirty)
+    ) {
+      <small class="error grupo">«Hasta» debe ser mayor que «desde».</small>
+    }
+
+    <button type="submit" [disabled]="form.invalid">Enviar solicitud</button>
+  </form>
+
+  <app-parcial2-busqueda />
+</section>
