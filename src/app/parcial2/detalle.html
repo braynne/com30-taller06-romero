@@ -1,0 +1,20 @@
+<section class="detalle">
+  <h2>Detalle de la solicitud</h2>
+
+  @if (valido()) {
+    <dl>
+      <dt>Código</dt>
+      <dd>{{ codigo() }}</dd>
+      <dt>Cantidad</dt>
+      <dd>{{ cantidad() }}</dd>
+      <dt>Bloques</dt>
+      <dd>{{ bloques() }}</dd>
+      <dt>Margen</dt>
+      <dd>{{ margen() }}</dd>
+    </dl>
+  } @else {
+    <p class="invalido">Código inválido</p>
+  }
+
+  <a routerLink="/parcial2">Volver a la solicitud</a>
+</section>

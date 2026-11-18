@@ -1,0 +1,40 @@
+.detalle {
+  padding: 1rem 1.25rem;
+  border: 1px solid #c7e8d6;
+  border-radius: 10px;
+  background: #f4fbf7;
+}
+
+.detalle h2 {
+  margin-top: 0;
+  color: #0a6b4a;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0 0 1rem;
+}
+
+dt {
+  color: #52606d;
+  font-weight: 600;
+}
+
+dd {
+  margin: 0;
+}
+
+.invalido {
+  padding: 0.8rem;
+  border-left: 4px solid #d64545;
+  background: #fff1f1;
+  color: #8a1c1c;
+  font-weight: 700;
+}
+
+.detalle a {
+  color: #0a6b4a;
+  font-weight: 600;
+}
